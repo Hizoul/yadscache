@@ -1,0 +1,17 @@
+{
+  "name": "yadscache",
+  "version": "1.0.0",
+  "description": "Dead Simple Caching with super simple \"Sync\"",
+  "main": "./dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/babel src --presets babel-preset-latest --out-dir dist",
+    "prepublish": "npm run build"
+  },
+  "author": "Matthias Müller-Brockhausen",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-preset-latest": "^6.16.0"
+  }
+}
