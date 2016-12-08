@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Dead Simple Caching with super simple \"Sync\"",
   "main": "./dist/index.js",
+  "repository": "github:Hizoul/yadscache",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/babel src --presets babel-preset-latest --out-dir dist",
