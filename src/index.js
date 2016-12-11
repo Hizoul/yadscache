@@ -130,6 +130,10 @@ class cUcache {
       }
       let callbacksNeeded = list.length
       const total = list.length
+      if (total === 0 ) {
+        cb()
+        return
+      }
       each(list, (item) => {
         this.submitter(item, (err, res) => {
           callbacksNeeded--
