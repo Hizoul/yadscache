@@ -1,4 +1,4 @@
-import { isNil, isString, isArray, pull, each } from 'lodash'
+import { isNil, isString, isArray, isFunction, pull, each } from 'lodash'
 
 class cUcache {
   constructor() {
@@ -29,7 +29,9 @@ class cUcache {
     this.get((fErr, savedVal) => {
       if (!isNil(fErr)) {
         this.log(`error getting item`, fErr)
-        cb(fErr)
+        if (isFunction(cb)) {
+          cb(fErr)
+        }
         return
       }
       let list = []
@@ -47,10 +49,14 @@ class cUcache {
       this.save(list, (err) => {
         if (err) {
           this.log(`error saving list`, err)
-          cb(err)
+          if (isFunction(cb)) {
+            cb(err)
+          }
         } else {
           this.log(`successfully saved new list`)
-          cb()
+          if (isFunction(cb)) {
+            cb()
+          }
         }
       })
     })
@@ -60,7 +66,9 @@ class cUcache {
     this.get((savedVal) => {
       if (!isNil(fErr)) {
         this.log(`error getting item`, fErr)
-        cb(fErr)
+        if (isFunction(cb)) {
+          cb(fErr)
+        }
         return
       }
       let list = []
@@ -77,10 +85,14 @@ class cUcache {
       this.save(list, (err) => {
         if (err) {
           this.log(`error saving list`, err)
-          cb(err)
+          if (isFunction(cb)) {
+            cb(err)
+          }
         } else {
           this.log(`successfully saved new list`)
-          cb()
+          if (isFunction(cb)) {
+            cb()
+          }
         }
       })
     })
@@ -90,7 +102,9 @@ class cUcache {
     this.get((fErr, savedVal) => {
       if (!isNil(fErr)) {
         this.log(`error getting item`, fErr)
-        cb(fErr)
+        if (isFunction(cb)) {
+          cb(fErr)
+        }
         return
       }
       let list = []
@@ -117,10 +131,14 @@ class cUcache {
             this.save(list, (serr) => {
               if (serr) {
                 this.log(`error saving list`, serr)
-                cb(serr)
+                if (isFunction(cb)) {
+                  cb(serr)
+                }
               } else {
                 this.log(`successfully saved synced list`, list)
-                cb()
+                if (isFunction(cb)) {
+                  cb()
+                }
               }
             })
           }
