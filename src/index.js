@@ -21,11 +21,7 @@ class cUcache {
   get(cb) {
     this.storage.getItem(this.storageKey, cb)
   }
-  save(newVal, cb) {
-    this.storage.setItem(this.storageKey, JSON.stringify(newVal), cb)
-  }
-  add(valueToCache, cb) {
-    this.log(`trying to add`, valueToCache)
+  getParsed(cb) {
     this.get((fErr, savedVal) => {
       if (!isNil(fErr)) {
         this.log(`error getting item`, fErr)
@@ -44,6 +40,22 @@ class cUcache {
             list = parsedList
           }
         } catch(e) {}
+      }
+      cb(null, list)
+    })
+  }
+  save(newVal, cb) {
+    this.storage.setItem(this.storageKey, JSON.stringify(newVal), cb)
+  }
+  add(valueToCache, cb) {
+    this.log(`trying to add`, valueToCache)
+    this.getParsed((fErr, list) => {
+      if (!isNil(fErr)) {
+        this.log(`error getting item`, fErr)
+        if (isFunction(cb)) {
+          cb(fErr)
+        }
+        return
       }
       list.push(valueToCache)
       this.save(list, (err) => {
@@ -117,6 +129,7 @@ class cUcache {
         }
       }
       let callbacksNeeded = list.length
+      const total = list.length
       each(list, (item) => {
         this.submitter(item, (err, res) => {
           callbacksNeeded--
@@ -140,6 +153,11 @@ class cUcache {
                   cb()
                 }
               }
+            })
+          } else {
+            cb({
+              total: total,
+              left: callbacksNeeded
             })
           }
         })
