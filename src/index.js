@@ -130,7 +130,4 @@ class cUcache {
   }
 }
 
-
-let exportObj = new cUcache()
-
-export default exportObj
+export default cUcache
