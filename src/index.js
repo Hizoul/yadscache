@@ -57,6 +57,7 @@ class cUcache {
         }
         return
       }
+      this.log(`got cached list`, list)
       list.push(valueToCache)
       this.save(list, (err) => {
         if (err) {
@@ -65,7 +66,7 @@ class cUcache {
             cb(err)
           }
         } else {
-          this.log(`successfully saved new list`)
+          this.log(`successfully saved new list`, list)
           if (isFunction(cb)) {
             cb()
           }
