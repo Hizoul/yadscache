@@ -31,6 +31,7 @@ class cUcache {
         return
       }
       let list = []
+      console.log(`parsedSaveVal is`, savedVal)
       if (isString(savedVal)) {
         this.log(`Found Cache`, savedVal)
         try {
@@ -39,12 +40,13 @@ class cUcache {
             this.log(`parsedvalue is valid`, parsedList)
             list = parsedList
           }
-        } catch(e) {}
+        } catch (e) {}
       }
       cb(null, list)
     })
   }
   save(newVal, cb) {
+    this.log(`saving ${this.storageKey} `, newVal)
     this.storage.setItem(this.storageKey, JSON.stringify(newVal), cb)
   }
   add(valueToCache, cb) {
@@ -78,7 +80,7 @@ class cUcache {
   }
   remove(valueToRemove, cb) {
     this.log(`Trying to remove`, valueToRemove)
-    this.get((savedVal) => {
+    this.get((fErr, savedVal) => {
       if (!isNil(fErr)) {
         this.log(`error getting item`, fErr)
         if (isFunction(cb)) {
@@ -133,7 +135,7 @@ class cUcache {
       }
       let callbacksNeeded = list.length
       const total = list.length
-      if (total === 0 ) {
+      if (total === 0) {
         cb()
         return
       }
@@ -147,7 +149,7 @@ class cUcache {
           } else {
             this.log(`error syncing`, err)
           }
-          if (callbacksNeeded == 0) {
+          if (callbacksNeeded === 0) {
             this.save(list, (serr) => {
               if (serr) {
                 this.log(`error saving list`, serr)
