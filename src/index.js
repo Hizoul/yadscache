@@ -7,9 +7,9 @@ class cUcache {
     this.storageKey = `cache.json`
     this.logToConsole = false
   }
-  log(msg) {
+  log(msg, data) {
     if (this.logToConsole) {
-      console.log(msg)
+      console.log(msg, data)
     }
   }
   setStorage(ns) {
