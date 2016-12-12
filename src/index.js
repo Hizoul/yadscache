@@ -1,4 +1,4 @@
-import { isNil, isString, isArray, isFunction, pull, each } from 'lodash'
+import { isNil, isString, isArray, isFunction, cloneDeep, pull, each } from 'lodash'
 
 class cUcache {
   constructor() {
@@ -57,16 +57,18 @@ class cUcache {
         }
         return
       }
-      this.log(`got cached list`, list)
-      list.push(valueToCache)
-      this.save(list, (err) => {
+      let newList = cloneDeep(list)
+      this.log(`got cached list`, newList)
+      newList.push(valueToCache)
+      this.log(`after push list is`, newList)
+      this.save(newList, (err) => {
         if (err) {
           this.log(`error saving list`, err)
           if (isFunction(cb)) {
             cb(err)
           }
         } else {
-          this.log(`successfully saved new list`, list)
+          this.log(`successfully saved new list`, newList)
           if (isFunction(cb)) {
             cb()
           }
