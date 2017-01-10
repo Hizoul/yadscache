@@ -124,7 +124,7 @@ class cUcache {
   }
   sync(cb) {
     this.log(`Trying to sync`)
-    this.get((fErr, savedVal) => {
+    this.getParsed((fErr, list) => {
       if (!isNil(fErr)) {
         this.log(`error getting item`, fErr)
         if (isFunction(cb)) {
@@ -132,18 +132,9 @@ class cUcache {
         }
         return
       }
-      let list = []
-      if (isString(savedVal)) {
-        this.log(`Found Cache`, savedVal)
-        let parsedList = JSON.parse(savedVal)
-        if (isArray(parsedList)) {
-          this.log(`parsedvalue is valid`, parsedList)
-          list = parsedList
-        }
-      }
       let callbacksNeeded = list.length
       const total = list.length
-      this.log(`going to iterate list with ${total} items`)
+      this.log(`going to iterate list with ${total} items ${parsedList.length}`, parsedList)
       if (total === 0) {
         cb()
         return
