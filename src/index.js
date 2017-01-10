@@ -135,11 +135,13 @@ class cUcache {
       }
       let callbacksNeeded = list.length
       const total = list.length
+      this.log(`going to iterate list with ${total} items`)
       if (total === 0) {
         cb()
         return
       }
       each(list, (item) => {
+      	this.log(`giving submitter item: `, item)
         this.submitter(item, (err, res) => {
           callbacksNeeded--
           if (isNil(err)) {
