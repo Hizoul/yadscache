@@ -134,7 +134,7 @@ class cUcache {
       }
       let callbacksNeeded = list.length
       const total = list.length
-      this.log(`going to iterate list with ${total} items ${parsedList.length}`, parsedList)
+      this.log(`going to iterate list with ${total} items ${list.length}`, list)
       if (total === 0) {
         cb()
         return
