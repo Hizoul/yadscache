@@ -6,6 +6,7 @@ class cUcache {
     this.submitter = null
     this.storageKey = `cache.json`
     this.logToConsole = false
+    this.parser = null
   }
   log(msg, data) {
     if (this.logToConsole) {
@@ -17,6 +18,9 @@ class cUcache {
   }
   setSubmitter(ns) {
     this.submitter = ns
+  }
+  setParser(ns) {
+    this.parser = ns
   }
   get(cb) {
     this.storage.getItem(this.storageKey, cb)
@@ -39,6 +43,10 @@ class cUcache {
           if (isArray(parsedList)) {
             this.log(`parsedvalue is valid`, parsedList)
             list = parsedList
+            if (isFunction(this.parser)) {
+              list = this.parser(list)
+              this.log(`got modified parsed value from parser`, list)
+            }
           }
         } catch (e) {}
       }
