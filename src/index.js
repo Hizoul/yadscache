@@ -35,7 +35,7 @@ class cUcache {
         return
       }
       let list = []
-      console.log(`parsedSaveVal is`, savedVal)
+      this.log(`parsedSaveVal is`, savedVal)
       if (isString(savedVal)) {
         this.log(`Found Cache`, savedVal)
         try {
@@ -144,7 +144,7 @@ class cUcache {
         this.submitter(item, (err, res) => {
           callbacksNeeded--
           if (isNil(err)) {
-            this.log(`no error pulling item ${JSON.stringify(item)}`, list)
+            this.log(`no error pulling item ${JSON.stringify(item)}`)
             pull(list, item)
             this.log(list)
           } else {
