@@ -136,6 +136,10 @@ class cUcache {
       const total = list.length
       this.log(`going to iterate list with ${total} items ${list.length}`, list)
       if (total === 0) {
+	    cb({
+	      total: 0,
+	      left: 0
+	    })
         cb()
         return
       }
@@ -160,6 +164,10 @@ class cUcache {
               } else {
                 this.log(`successfully saved synced list`, list)
                 if (isFunction(cb)) {
+			      cb({
+			        total: total,
+			        left: callbacksNeeded
+			      })
                   cb()
                 }
               }

@@ -1,6 +1,6 @@
 {
   "name": "yadscache",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "Dead Simple Caching with super simple \"Sync\"",
   "main": "./dist/index.js",
   "repository": "github:Hizoul/yadscache",
